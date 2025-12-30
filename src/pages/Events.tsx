@@ -60,11 +60,11 @@ const Events = () => {
   return (
     <CustomerLayout>
       {/* Header */}
-      <section className="bg-gradient-to-b from-muted/50 to-background py-12 md:py-16">
+      <section className="bg-gradient-to-br from-purple/10 via-coral/5 to-teal/10 py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Discover Amazing Events
+              Discover <span className="text-coral">Amazing</span> Events
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
               Find your next celebration from weddings to owambe parties
@@ -72,18 +72,18 @@ const Events = () => {
 
             {/* Search Bar */}
             <div className="relative max-w-xl mx-auto">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple" />
               <Input
                 type="text"
                 placeholder="Search events, venues, locations..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 pr-12 py-6 text-lg bg-card border-border"
+                className="pl-12 pr-12 py-6 text-lg bg-card border-2 border-purple/20 focus:border-purple"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-coral"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -113,21 +113,24 @@ const Events = () => {
             <Button
               variant={selectedCategory === "all" ? "default" : "outline"}
               onClick={() => handleCategoryChange("all")}
-              className={selectedCategory === "all" ? "btn-gold" : ""}
+              className={selectedCategory === "all" ? "btn-purple" : "border-purple/30 hover:bg-purple/10"}
             >
               All Events
             </Button>
-            {EVENT_CATEGORIES.map((category) => (
-              <Button
-                key={category.value}
-                variant={selectedCategory === category.value ? "default" : "outline"}
-                onClick={() => handleCategoryChange(category.value)}
-                className={selectedCategory === category.value ? "btn-gold" : ""}
-              >
-                <span className="mr-1">{category.icon}</span>
-                {category.label}
-              </Button>
-            ))}
+            {EVENT_CATEGORIES.map((category, index) => {
+              const colors = ['btn-coral', 'btn-gold', 'btn-purple', 'bg-teal text-white', 'btn-coral'];
+              return (
+                <Button
+                  key={category.value}
+                  variant={selectedCategory === category.value ? "default" : "outline"}
+                  onClick={() => handleCategoryChange(category.value)}
+                  className={selectedCategory === category.value ? colors[index % colors.length] : "border-teal/30 hover:bg-teal/10"}
+                >
+                  <span className="mr-1">{category.icon}</span>
+                  {category.label}
+                </Button>
+              );
+            })}
           </div>
         </div>
 
