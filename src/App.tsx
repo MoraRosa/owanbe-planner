@@ -10,6 +10,7 @@ import PlannerLayout from "./components/PlannerLayout";
 import DashboardHome from "./pages/planner/DashboardHome";
 import MyEvents from "./pages/planner/MyEvents";
 import CreateEvent from "./pages/planner/CreateEvent";
+import VendorDiscovery from "./pages/planner/VendorDiscovery";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,7 +32,7 @@ const App = () => (
             <Route path="events" element={<MyEvents />} />
             <Route path="events/new" element={<CreateEvent />} />
             <Route path="events/:id" element={<MyEvents />} />
-            <Route path="vendors" element={<div className="text-center py-16"><h1 className="text-2xl font-display">Vendor Discovery - Coming Soon</h1></div>} />
+            <Route path="vendors" element={<VendorDiscovery />} />
             <Route path="guests" element={<div className="text-center py-16"><h1 className="text-2xl font-display">Guest Management - Coming Soon</h1></div>} />
             <Route path="budget" element={<div className="text-center py-16"><h1 className="text-2xl font-display">Budget Tracking - Coming Soon</h1></div>} />
             <Route path="messages" element={<div className="text-center py-16"><h1 className="text-2xl font-display">Messages - Coming Soon</h1></div>} />
