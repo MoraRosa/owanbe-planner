@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
+import AuthPage from "./pages/planner/AuthPage";
+import VendorAuthPage from "./pages/vendor/VendorAuthPage";
 import PlannerLayout from "./components/PlannerLayout";
 import DashboardHome from "./pages/planner/DashboardHome";
 import MyEvents from "./pages/planner/MyEvents";
@@ -20,6 +22,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/auth/planner" element={<AuthPage />} />
+          <Route path="/auth/vendor" element={<VendorAuthPage />} />
           
           {/* Planner Dashboard Routes */}
           <Route path="/dashboard" element={<PlannerLayout />}>

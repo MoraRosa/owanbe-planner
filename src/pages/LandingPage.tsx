@@ -1,28 +1,20 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Sparkles, User, Store, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { useAuth } from '@/hooks/useAuth';
+import { useEffect } from 'react';
 
 export default function LandingPage() {
   const navigate = useNavigate();
-  const { isAuthenticated, demoLoginPlanner, demoLoginVendor, loading } = useAuth();
-
-  const handlePlannerLogin = async () => {
-    await demoLoginPlanner();
-    navigate('/dashboard');
-  };
-
-  const handleVendorLogin = async () => {
-    await demoLoginVendor();
-    navigate('/vendor');
-  };
+  const { isAuthenticated } = useAuth();
 
   // If already logged in, redirect
-  if (isAuthenticated) {
-    navigate('/dashboard');
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="min-h-screen bg-background bg-pattern-adire">
@@ -75,14 +67,12 @@ export default function LandingPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button 
-                  onClick={handlePlannerLogin}
-                  disabled={loading}
-                  className="w-full btn-coral gap-2"
-                >
-                  Continue as Planner
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
+                <Link to="/auth/planner">
+                  <Button className="w-full btn-coral gap-2">
+                    Continue as Planner
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -97,15 +87,15 @@ export default function LandingPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button 
-                  onClick={handleVendorLogin}
-                  disabled={loading}
-                  variant="outline"
-                  className="w-full gap-2 border-teal text-teal hover:bg-teal hover:text-cream"
-                >
-                  Continue as Vendor
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
+                <Link to="/auth/vendor">
+                  <Button 
+                    variant="outline"
+                    className="w-full gap-2 border-teal text-teal hover:bg-teal hover:text-cream"
+                  >
+                    Continue as Vendor
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </div>
