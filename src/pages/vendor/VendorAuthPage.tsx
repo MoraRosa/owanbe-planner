@@ -88,7 +88,7 @@ const VendorAuthPage = () => {
         {/* Back Button */}
         <Link 
           to="/" 
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors bg-black/20 px-3 py-1.5 rounded-full backdrop-blur-sm"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Home
