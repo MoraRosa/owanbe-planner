@@ -12,6 +12,7 @@ import MyEvents from "./pages/planner/MyEvents";
 import CreateEvent from "./pages/planner/CreateEvent";
 import VendorDiscovery from "./pages/planner/VendorDiscovery";
 import BudgetTracking from "./pages/planner/BudgetTracking";
+import GuestManagement from "./pages/planner/GuestManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,7 +35,7 @@ const App = () => (
             <Route path="events/new" element={<CreateEvent />} />
             <Route path="events/:id" element={<MyEvents />} />
             <Route path="vendors" element={<VendorDiscovery />} />
-            <Route path="guests" element={<div className="text-center py-16"><h1 className="text-2xl font-display">Guest Management - Coming Soon</h1></div>} />
+            <Route path="guests" element={<GuestManagement />} />
             <Route path="budget" element={<BudgetTracking />} />
             <Route path="messages" element={<div className="text-center py-16"><h1 className="text-2xl font-display">Messages - Coming Soon</h1></div>} />
             <Route path="settings" element={<div className="text-center py-16"><h1 className="text-2xl font-display">Settings - Coming Soon</h1></div>} />
