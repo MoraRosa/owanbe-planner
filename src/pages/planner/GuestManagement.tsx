@@ -18,6 +18,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
+import BulkGuestImport from '@/components/BulkGuestImport';
 import { 
   Plus, Trash2, Users, UserCheck, UserX, Clock, 
   Copy, Share2, Mail, Phone, Edit2, Search
@@ -356,11 +357,13 @@ export default function GuestManagement() {
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground">
-                Note: This is a demo link. In a production app, this would lead to a real RSVP form.
+                Guests can RSVP directly through this link.
               </p>
             </div>
           </DialogContent>
         </Dialog>
+
+        <BulkGuestImport eventId={selectedEventId} onImportComplete={loadGuests} />
 
         <Dialog open={addDialogOpen} onOpenChange={(open) => { setAddDialogOpen(open); if (!open) resetForm(); }}>
           <DialogTrigger asChild>
