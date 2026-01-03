@@ -13,6 +13,7 @@ import CreateEvent from "./pages/planner/CreateEvent";
 import VendorDiscovery from "./pages/planner/VendorDiscovery";
 import BudgetTracking from "./pages/planner/BudgetTracking";
 import GuestManagement from "./pages/planner/GuestManagement";
+import RsvpPage from "./pages/public/RsvpPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,9 @@ const App = () => (
 
           {/* Vendor Routes - Placeholder */}
           <Route path="/vendor" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl font-display">Vendor Dashboard - Coming Soon</h1></div>} />
+          
+          {/* Public RSVP Page */}
+          <Route path="/rsvp/:eventId" element={<RsvpPage />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
