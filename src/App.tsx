@@ -14,6 +14,7 @@ import VendorDiscovery from "./pages/planner/VendorDiscovery";
 import BudgetTracking from "./pages/planner/BudgetTracking";
 import GuestManagement from "./pages/planner/GuestManagement";
 import RsvpPage from "./pages/public/RsvpPage";
+import InstallPage from "./pages/public/InstallPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +48,9 @@ const App = () => (
           
           {/* Public RSVP Page */}
           <Route path="/rsvp/:eventId" element={<RsvpPage />} />
+          
+          {/* Install PWA Page */}
+          <Route path="/install" element={<InstallPage />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
