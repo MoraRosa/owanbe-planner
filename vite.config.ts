@@ -6,6 +6,8 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // Set base path for GitHub Pages - update 'owambe-planner' to your repo name
+  base: mode === 'production' ? '/owambe-planner/' : '/',
   server: {
     host: "::",
     port: 8080,
