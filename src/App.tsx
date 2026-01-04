@@ -16,6 +16,7 @@ import GuestManagement from "./pages/planner/GuestManagement";
 import Messages from "./pages/planner/Messages";
 import RsvpPage from "./pages/public/RsvpPage";
 import InstallPage from "./pages/public/InstallPage";
+import BackgroundPatternsDemo from "./pages/public/BackgroundPatternsDemo";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +53,9 @@ const App = () => (
           
           {/* Install PWA Page */}
           <Route path="/install" element={<InstallPage />} />
+          
+          {/* Background Patterns Demo */}
+          <Route path="/patterns" element={<BackgroundPatternsDemo />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
