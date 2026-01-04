@@ -320,6 +320,90 @@ export const markMessageAsRead = async (id: string): Promise<void> => {
   }
 };
 
+// Get conversation between two users
+export const getConversation = async (userId1: string, userId2: string): Promise<Message[]> => {
+  const allMessages = await getAll<Message>('messages');
+  return allMessages
+    .filter(m => 
+      (m.senderId === userId1 && m.receiverId === userId2) ||
+      (m.senderId === userId2 && m.receiverId === userId1)
+    )
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+};
+
+// Get all conversations for a user (grouped by other participant)
+export interface Conversation {
+  participantId: string;
+  participantName: string;
+  participantType: 'vendor' | 'planner';
+  lastMessage: Message;
+  unreadCount: number;
+}
+
+export const getUserConversations = async (userId: string): Promise<Conversation[]> => {
+  const messages = await getUserMessages(userId);
+  const vendors = await getAllVendors();
+  const users = await getAll<User>('users');
+  
+  // Group messages by conversation partner
+  const conversationMap = new Map<string, { messages: Message[]; unread: number }>();
+  
+  for (const msg of messages) {
+    const partnerId = msg.senderId === userId ? msg.receiverId : msg.senderId;
+    
+    if (!conversationMap.has(partnerId)) {
+      conversationMap.set(partnerId, { messages: [], unread: 0 });
+    }
+    
+    const conv = conversationMap.get(partnerId)!;
+    conv.messages.push(msg);
+    
+    if (!msg.read && msg.receiverId === userId) {
+      conv.unread++;
+    }
+  }
+  
+  // Convert to conversations array
+  const conversations: Conversation[] = [];
+  
+  for (const [partnerId, data] of conversationMap) {
+    // Find the partner - could be a vendor or a user
+    const vendor = vendors.find(v => v.userId === partnerId);
+    const user = users.find(u => u.id === partnerId);
+    
+    const lastMessage = data.messages[0]; // Already sorted by most recent first
+    
+    conversations.push({
+      participantId: partnerId,
+      participantName: vendor?.businessName || user?.name || 'Unknown',
+      participantType: vendor ? 'vendor' : 'planner',
+      lastMessage,
+      unreadCount: data.unread,
+    });
+  }
+  
+  // Sort by last message date
+  return conversations.sort((a, b) => 
+    new Date(b.lastMessage.createdAt).getTime() - new Date(a.lastMessage.createdAt).getTime()
+  );
+};
+
+// Mark all messages in a conversation as read
+export const markConversationAsRead = async (userId: string, partnerId: string): Promise<void> => {
+  const messages = await getConversation(userId, partnerId);
+  for (const msg of messages) {
+    if (msg.receiverId === userId && !msg.read) {
+      await update('messages', { ...msg, read: true });
+    }
+  }
+};
+
+// Get unread message count for a user
+export const getUnreadMessageCount = async (userId: string): Promise<number> => {
+  const received = await getByIndex<Message>('messages', 'receiverId', userId);
+  return received.filter(m => !m.read).length;
+};
+
 // ============= Seed Demo Data =============
 export const seedDemoData = async (): Promise<void> => {
   const existingVendors = await getAllVendors();
