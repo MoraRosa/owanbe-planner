@@ -13,6 +13,7 @@ import CreateEvent from "./pages/planner/CreateEvent";
 import VendorDiscovery from "./pages/planner/VendorDiscovery";
 import BudgetTracking from "./pages/planner/BudgetTracking";
 import GuestManagement from "./pages/planner/GuestManagement";
+import Messages from "./pages/planner/Messages";
 import RsvpPage from "./pages/public/RsvpPage";
 import InstallPage from "./pages/public/InstallPage";
 import NotFound from "./pages/NotFound";
@@ -39,7 +40,7 @@ const App = () => (
             <Route path="vendors" element={<VendorDiscovery />} />
             <Route path="guests" element={<GuestManagement />} />
             <Route path="budget" element={<BudgetTracking />} />
-            <Route path="messages" element={<div className="text-center py-16"><h1 className="text-2xl font-display">Messages - Coming Soon</h1></div>} />
+            <Route path="messages" element={<Messages />} />
             <Route path="settings" element={<div className="text-center py-16"><h1 className="text-2xl font-display">Settings - Coming Soon</h1></div>} />
           </Route>
 
