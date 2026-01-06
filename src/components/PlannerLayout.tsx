@@ -12,10 +12,11 @@ import {
   X,
   Sparkles
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
+import { getUnreadMessageCount, initDB } from '@/lib/indexedDb';
 
 const navItems = [
   { path: '/dashboard', label: 'Dashboard', icon: Home },
@@ -23,15 +24,31 @@ const navItems = [
   { path: '/dashboard/vendors', label: 'Find Vendors', icon: Store },
   { path: '/dashboard/guests', label: 'Guest Lists', icon: Users },
   { path: '/dashboard/budget', label: 'Budget', icon: Wallet },
-  { path: '/dashboard/messages', label: 'Messages', icon: MessageSquare },
+  { path: '/dashboard/messages', label: 'Messages', icon: MessageSquare, hasNotification: true },
   { path: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 
 export default function PlannerLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+
+  // Fetch unread message count
+  useEffect(() => {
+    const fetchUnreadCount = async () => {
+      if (!user) return;
+      await initDB();
+      const count = await getUnreadMessageCount(user.id);
+      setUnreadCount(count);
+    };
+
+    fetchUnreadCount();
+    // Refresh every 30 seconds
+    const interval = setInterval(fetchUnreadCount, 30000);
+    return () => clearInterval(interval);
+  }, [user, location.pathname]);
 
   const handleLogout = () => {
     logout();
@@ -87,7 +104,12 @@ export default function PlannerLayout() {
                 )}
               >
                 <item.icon className="w-5 h-5" />
-                <span>{item.label}</span>
+                <span className="flex-1">{item.label}</span>
+                {item.hasNotification && unreadCount > 0 && (
+                  <span className="min-w-[20px] h-5 px-1.5 rounded-full bg-coral text-cream text-xs font-bold flex items-center justify-center">
+                    {unreadCount > 99 ? '99+' : unreadCount}
+                  </span>
+                )}
               </Link>
             );
           })}

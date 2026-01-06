@@ -62,7 +62,9 @@ export default function MyEvents() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      {/* Ankara pattern background */}
+      <div className="absolute inset-0 -z-10 bg-pattern-ankara opacity-30 pointer-events-none" />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
