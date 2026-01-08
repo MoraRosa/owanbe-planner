@@ -160,7 +160,7 @@ export default function PlannerLayout() {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-4 lg:p-8 overflow-auto">
+        <main className="flex-1 p-4 lg:p-8 overflow-auto relative">
           <Outlet />
         </main>
       </div>
