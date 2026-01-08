@@ -62,7 +62,7 @@ export default function MyEvents() {
   }
 
   return (
-    <div className="space-y-6 min-h-full bg-pattern-ankara" style={{ backgroundBlendMode: 'overlay', backgroundColor: 'hsl(35 30% 97% / 0.85)' }}>
+    <div className="space-y-6 min-h-full bg-pattern-ankara" style={{ backgroundBlendMode: 'overlay', backgroundColor: 'hsl(35 30% 97% / 0.7)' }}>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
