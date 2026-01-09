@@ -7,6 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/planner/AuthPage";
 import VendorAuthPage from "./pages/vendor/VendorAuthPage";
 import PlannerLayout from "./components/PlannerLayout";
+import VendorLayout from "./components/VendorLayout";
 import DashboardHome from "./pages/planner/DashboardHome";
 import MyEvents from "./pages/planner/MyEvents";
 import CreateEvent from "./pages/planner/CreateEvent";
@@ -14,6 +15,15 @@ import VendorDiscovery from "./pages/planner/VendorDiscovery";
 import BudgetTracking from "./pages/planner/BudgetTracking";
 import GuestManagement from "./pages/planner/GuestManagement";
 import Messages from "./pages/planner/Messages";
+import Settings from "./pages/planner/Settings";
+import VendorDashboard from "./pages/vendor/VendorDashboard";
+import VendorProfile from "./pages/vendor/VendorProfile";
+import VendorServices from "./pages/vendor/VendorServices";
+import VendorBookings from "./pages/vendor/VendorBookings";
+import VendorReviews from "./pages/vendor/VendorReviews";
+import VendorAnalytics from "./pages/vendor/VendorAnalytics";
+import VendorMessages from "./pages/vendor/VendorMessages";
+import VendorSettings from "./pages/vendor/VendorSettings";
 import RsvpPage from "./pages/public/RsvpPage";
 import InstallPage from "./pages/public/InstallPage";
 import BackgroundPatternsDemo from "./pages/public/BackgroundPatternsDemo";
@@ -42,11 +52,20 @@ const App = () => (
             <Route path="guests" element={<GuestManagement />} />
             <Route path="budget" element={<BudgetTracking />} />
             <Route path="messages" element={<Messages />} />
-            <Route path="settings" element={<div className="text-center py-16"><h1 className="text-2xl font-display">Settings - Coming Soon</h1></div>} />
+            <Route path="settings" element={<Settings />} />
           </Route>
 
-          {/* Vendor Routes - Placeholder */}
-          <Route path="/vendor" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl font-display">Vendor Dashboard - Coming Soon</h1></div>} />
+          {/* Vendor Portal Routes */}
+          <Route path="/vendor" element={<VendorLayout />}>
+            <Route index element={<VendorDashboard />} />
+            <Route path="profile" element={<VendorProfile />} />
+            <Route path="services" element={<VendorServices />} />
+            <Route path="bookings" element={<VendorBookings />} />
+            <Route path="reviews" element={<VendorReviews />} />
+            <Route path="analytics" element={<VendorAnalytics />} />
+            <Route path="messages" element={<VendorMessages />} />
+            <Route path="settings" element={<VendorSettings />} />
+          </Route>
           
           {/* Public RSVP Page */}
           <Route path="/rsvp/:eventId" element={<RsvpPage />} />
