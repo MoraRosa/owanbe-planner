@@ -16,8 +16,10 @@ import BudgetTracking from "./pages/planner/BudgetTracking";
 import GuestManagement from "./pages/planner/GuestManagement";
 import Messages from "./pages/planner/Messages";
 import Settings from "./pages/planner/Settings";
+import Profile from "./pages/planner/Profile";
 import VendorDashboard from "./pages/vendor/VendorDashboard";
 import VendorProfile from "./pages/vendor/VendorProfile";
+import VendorProfileView from "./pages/vendor/VendorProfileView";
 import VendorServices from "./pages/vendor/VendorServices";
 import VendorBookings from "./pages/vendor/VendorBookings";
 import VendorReviews from "./pages/vendor/VendorReviews";
@@ -52,13 +54,15 @@ const App = () => (
             <Route path="guests" element={<GuestManagement />} />
             <Route path="budget" element={<BudgetTracking />} />
             <Route path="messages" element={<Messages />} />
+            <Route path="profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />
           </Route>
 
           {/* Vendor Portal Routes */}
           <Route path="/vendor" element={<VendorLayout />}>
             <Route index element={<VendorDashboard />} />
-            <Route path="profile" element={<VendorProfile />} />
+            <Route path="business" element={<VendorProfile />} />
+            <Route path="profile" element={<VendorProfileView />} />
             <Route path="services" element={<VendorServices />} />
             <Route path="bookings" element={<VendorBookings />} />
             <Route path="reviews" element={<VendorReviews />} />

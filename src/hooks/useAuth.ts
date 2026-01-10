@@ -87,6 +87,17 @@ export function useAuth() {
     setUser(null);
   }, []);
 
+  const refreshUser = useCallback(async () => {
+    try {
+      if (isAuthenticated()) {
+        const currentUser = await getCurrentUser();
+        setUser(currentUser);
+      }
+    } catch (err) {
+      console.error('Error refreshing user:', err);
+    }
+  }, []);
+
   return {
     user,
     loading,
@@ -97,5 +108,6 @@ export function useAuth() {
     logout,
     demoLoginPlanner,
     demoLoginVendor,
+    refreshUser,
   };
 }

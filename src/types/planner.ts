@@ -32,6 +32,17 @@ export interface User {
   phone?: string;
   role: 'planner' | 'vendor';
   avatarUrl?: string;
+  bio?: string;
+  location?: string;
+  socialLinks?: {
+    instagram?: string;
+    twitter?: string;
+    facebook?: string;
+    linkedin?: string;
+    website?: string;
+  };
+  eventsPlanned?: number;
+  memberSince?: string;
   createdAt: string;
 }
 
