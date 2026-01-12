@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { useImageUpload } from '@/hooks/useImageUpload';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -34,6 +35,15 @@ export default function Profile() {
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [events, setEvents] = useState<PlannerEvent[]>([]);
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  const { handleInputChange: handleImageInput, uploading: uploadingImage } = useImageUpload({
+    maxSizeMB: 5,
+    onSuccess: (dataUrl) => {
+      setAvatarUrl(dataUrl);
+    },
+  });
   
   // Profile form state
   const [formData, setFormData] = useState({
@@ -61,6 +71,7 @@ export default function Profile() {
         linkedin: user.socialLinks?.linkedin || '',
         website: user.socialLinks?.website || '',
       });
+      setAvatarUrl(user.avatarUrl);
       
       // Load user events
       loadEvents();
@@ -90,6 +101,7 @@ export default function Profile() {
           phone: formData.phone,
           bio: formData.bio,
           location: formData.location,
+          avatarUrl: avatarUrl,
           socialLinks: {
             instagram: formData.instagram || undefined,
             twitter: formData.twitter || undefined,
@@ -123,6 +135,7 @@ export default function Profile() {
         linkedin: user.socialLinks?.linkedin || '',
         website: user.socialLinks?.website || '',
       });
+      setAvatarUrl(user.avatarUrl);
     }
     setEditing(false);
   };
@@ -157,15 +170,28 @@ export default function Profile() {
           <div className="absolute -top-16 left-6">
             <div className="relative">
               <Avatar className="w-28 h-28 md:w-32 md:h-32 border-4 border-background shadow-xl">
-                <AvatarImage src={user?.avatarUrl} alt={user?.name} />
+                <AvatarImage src={avatarUrl} alt={user?.name} />
                 <AvatarFallback className="bg-gradient-to-br from-purple to-coral text-cream text-3xl md:text-4xl">
                   {user?.name?.charAt(0).toUpperCase() || 'U'}
                 </AvatarFallback>
               </Avatar>
               {editing && (
-                <button className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors">
-                  <Camera className="w-4 h-4" />
-                </button>
+                <>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    onChange={handleImageInput}
+                    className="hidden"
+                  />
+                  <button 
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploadingImage}
+                    className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+                  >
+                    <Camera className="w-4 h-4" />
+                  </button>
+                </>
               )}
             </div>
           </div>
