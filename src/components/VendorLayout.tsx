@@ -119,15 +119,23 @@ export default function VendorLayout() {
 
         {/* User section */}
         <div className="p-4 border-t border-teal-light/20">
-          <div className="flex items-center gap-3 px-4 py-3 mb-2">
-            <div className="w-10 h-10 rounded-full bg-coral flex items-center justify-center text-cream font-semibold">
-              {user?.name?.charAt(0).toUpperCase() || 'V'}
+          <Link
+            to="/vendor/profile"
+            onClick={() => setSidebarOpen(false)}
+            className="flex items-center gap-3 px-4 py-3 mb-2 rounded-lg hover:bg-teal-light/30 transition-colors cursor-pointer"
+          >
+            <div className="w-10 h-10 rounded-full bg-coral flex items-center justify-center text-cream font-semibold overflow-hidden">
+              {user?.avatarUrl ? (
+                <img src={user.avatarUrl} alt={user.name} className="w-full h-full object-cover" />
+              ) : (
+                user?.name?.charAt(0).toUpperCase() || 'V'
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-cream truncate">{user?.name || 'Vendor'}</p>
               <p className="text-xs text-cream/60 truncate">{user?.email}</p>
             </div>
-          </div>
+          </Link>
           <Button
             variant="ghost"
             onClick={handleLogout}
