@@ -26,7 +26,6 @@ const navItems = [
   { path: '/dashboard/guests', label: 'Guest Lists', icon: Users },
   { path: '/dashboard/budget', label: 'Budget', icon: Wallet },
   { path: '/dashboard/messages', label: 'Messages', icon: MessageSquare, hasNotification: true },
-  { path: '/dashboard/profile', label: 'My Profile', icon: UserCircle },
   { path: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 

@@ -23,7 +23,6 @@ import { getUnreadMessageCount, initDB } from '@/lib/indexedDb';
 const navItems = [
   { path: '/vendor', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/vendor/business', label: 'My Business', icon: Briefcase },
-  { path: '/vendor/profile', label: 'My Profile', icon: UserCircle },
   { path: '/vendor/services', label: 'Services', icon: Package },
   { path: '/vendor/bookings', label: 'Bookings', icon: Calendar },
   { path: '/vendor/reviews', label: 'Reviews', icon: Star },
