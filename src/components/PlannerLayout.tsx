@@ -11,7 +11,9 @@ import {
   Menu,
   X,
   Sparkles,
-  UserCircle
+  UserCircle,
+  ListTodo,
+  Image
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
@@ -22,9 +24,11 @@ import { getUnreadMessageCount, initDB } from '@/lib/indexedDb';
 const navItems = [
   { path: '/dashboard', label: 'Dashboard', icon: Home },
   { path: '/dashboard/events', label: 'My Events', icon: Calendar },
+  { path: '/dashboard/timeline', label: 'Timeline', icon: ListTodo },
   { path: '/dashboard/vendors', label: 'Find Vendors', icon: Store },
   { path: '/dashboard/guests', label: 'Guest Lists', icon: Users },
   { path: '/dashboard/budget', label: 'Budget', icon: Wallet },
+  { path: '/dashboard/gallery', label: 'Photo Gallery', icon: Image },
   { path: '/dashboard/messages', label: 'Messages', icon: MessageSquare, hasNotification: true },
   { path: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];

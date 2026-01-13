@@ -9,9 +9,10 @@ import type {
   Guest, 
   Message 
 } from '@/types/planner';
+import type { Milestone, EventPhoto } from '@/types/timeline';
 
 const DB_NAME = 'owambe_planner';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 let db: IDBDatabase | null = null;
 
@@ -84,6 +85,18 @@ export const initDB = (): Promise<IDBDatabase> => {
         messagesStore.createIndex('senderId', 'senderId', { unique: false });
         messagesStore.createIndex('receiverId', 'receiverId', { unique: false });
         messagesStore.createIndex('eventId', 'eventId', { unique: false });
+      }
+
+      // Milestones store
+      if (!database.objectStoreNames.contains('milestones')) {
+        const milestonesStore = database.createObjectStore('milestones', { keyPath: 'id' });
+        milestonesStore.createIndex('eventId', 'eventId', { unique: false });
+      }
+
+      // Event Photos store
+      if (!database.objectStoreNames.contains('eventPhotos')) {
+        const photosStore = database.createObjectStore('eventPhotos', { keyPath: 'id' });
+        photosStore.createIndex('eventId', 'eventId', { unique: false });
       }
     };
   });
@@ -704,4 +717,48 @@ export const seedDemoData = async (): Promise<void> => {
   for (const vendor of sampleVendors) {
     await createVendor(vendor);
   }
+};
+
+// ============= Milestone Operations =============
+export const saveMilestone = async (data: Omit<Milestone, 'id' | 'createdAt' | 'updatedAt'>): Promise<Milestone> => {
+  const milestone: Milestone = {
+    ...data,
+    id: generateId(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+  return add('milestones', milestone);
+};
+
+export const getMilestones = async (eventId: string): Promise<Milestone[]> => {
+  return getByIndex<Milestone>('milestones', 'eventId', eventId);
+};
+
+export const updateMilestone = async (id: string, updates: Partial<Milestone>): Promise<Milestone> => {
+  const existing = await getById<Milestone>('milestones', id);
+  if (!existing) throw new Error('Milestone not found');
+  const updated = { ...existing, ...updates, updatedAt: new Date().toISOString() };
+  return update('milestones', updated);
+};
+
+export const deleteMilestone = async (id: string): Promise<boolean> => {
+  return remove('milestones', id);
+};
+
+// ============= Event Photo Operations =============
+export const saveEventPhoto = async (data: Omit<EventPhoto, 'id' | 'uploadedAt'>): Promise<EventPhoto> => {
+  const photo: EventPhoto = {
+    ...data,
+    id: generateId(),
+    uploadedAt: new Date().toISOString(),
+  };
+  return add('eventPhotos', photo);
+};
+
+export const getEventPhotos = async (eventId: string): Promise<EventPhoto[]> => {
+  return getByIndex<EventPhoto>('eventPhotos', 'eventId', eventId);
+};
+
+export const deleteEventPhoto = async (id: string): Promise<boolean> => {
+  return remove('eventPhotos', id);
 };
