@@ -17,6 +17,8 @@ import GuestManagement from "./pages/planner/GuestManagement";
 import Messages from "./pages/planner/Messages";
 import Settings from "./pages/planner/Settings";
 import Profile from "./pages/planner/Profile";
+import Timeline from "./pages/planner/Timeline";
+import PhotoGallery from "./pages/planner/PhotoGallery";
 import VendorDashboard from "./pages/vendor/VendorDashboard";
 import VendorProfile from "./pages/vendor/VendorProfile";
 import VendorProfileView from "./pages/vendor/VendorProfileView";
@@ -53,6 +55,8 @@ const App = () => (
             <Route path="vendors" element={<VendorDiscovery />} />
             <Route path="guests" element={<GuestManagement />} />
             <Route path="budget" element={<BudgetTracking />} />
+            <Route path="timeline" element={<Timeline />} />
+            <Route path="gallery" element={<PhotoGallery />} />
             <Route path="messages" element={<Messages />} />
             <Route path="profile" element={<Profile />} />
             <Route path="settings" element={<Settings />} />

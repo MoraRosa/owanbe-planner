@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Calendar, Clock, MapPin, Users, MoreVertical, Trash2, Edit } from 'lucide-react';
+import { Plus, Calendar, Clock, MapPin, Users, MoreVertical, Trash2, Edit, CalendarPlus, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -8,9 +8,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/hooks/useAuth';
 import { getUserEvents, deleteEvent, initDB } from '@/lib/indexedDb';
+import { downloadICSFile, generateGoogleCalendarURL } from '@/lib/calendarExport';
 import type { PlannerEvent } from '@/types/planner';
 import { getCategoryIcon, getCategoryLabel } from '@/types/planner';
 import { format, isPast, differenceInDays } from 'date-fns';
@@ -163,6 +165,26 @@ export default function MyEvents() {
                             Edit
                           </Link>
                         </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem 
+                          onClick={() => {
+                            window.open(generateGoogleCalendarURL(event), '_blank');
+                            toast.success('Opening Google Calendar...');
+                          }}
+                        >
+                          <CalendarPlus className="w-4 h-4 mr-2" />
+                          Add to Google Calendar
+                        </DropdownMenuItem>
+                        <DropdownMenuItem 
+                          onClick={() => {
+                            downloadICSFile(event);
+                            toast.success('Calendar file downloaded');
+                          }}
+                        >
+                          <Download className="w-4 h-4 mr-2" />
+                          Download .ics (Apple/Outlook)
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem 
                           className="text-destructive focus:text-destructive"
                           onClick={() => handleDelete(event.id)}
