@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const BackgroundPatternsDemo = () => {
@@ -11,6 +11,87 @@ const BackgroundPatternsDemo = () => {
       
       <h1 className="text-4xl font-display font-bold mb-2">Background Patterns Demo</h1>
       <p className="text-muted-foreground mb-8">Explore different pattern options for your designs</p>
+
+      {/* Logo Preview Section */}
+      <div className="mb-12 p-6 rounded-2xl border border-border bg-card">
+        <h2 className="text-2xl font-display font-bold mb-4">Logo & Branding Preview</h2>
+        <p className="text-muted-foreground mb-6">Compare the current favicon with potential logo options</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Current Favicon */}
+          <div className="space-y-4 text-center">
+            <div className="w-32 h-32 mx-auto rounded-2xl border border-border bg-background flex items-center justify-center overflow-hidden">
+              <img 
+                src="/favicon.ico" 
+                alt="Current Favicon" 
+                className="w-24 h-24 object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement!.innerHTML = '<span class="text-muted-foreground text-sm">Default icon</span>';
+                }}
+              />
+            </div>
+            <h3 className="font-display font-semibold">Current Favicon</h3>
+            <p className="text-sm text-muted-foreground">The default project favicon</p>
+          </div>
+
+          {/* Star Logo Option */}
+          <div className="space-y-4 text-center">
+            <div className="w-32 h-32 mx-auto rounded-2xl border-2 border-primary bg-gradient-to-br from-primary to-purple flex items-center justify-center">
+              <Star className="w-16 h-16 text-primary-foreground fill-gold" />
+            </div>
+            <h3 className="font-display font-semibold">Star Icon (Current Nav)</h3>
+            <p className="text-sm text-muted-foreground">The star used in navigation header</p>
+          </div>
+
+          {/* Custom Owambe Logo Concept */}
+          <div className="space-y-4 text-center">
+            <div className="w-32 h-32 mx-auto rounded-2xl border-2 border-gold bg-gradient-to-br from-gold via-coral to-primary flex items-center justify-center">
+              <div className="text-center">
+                <span className="text-4xl font-display font-bold text-white drop-shadow-lg">O</span>
+                <div className="flex gap-0.5 justify-center mt-1">
+                  <div className="w-2 h-2 rounded-full bg-white/80"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/60"></div>
+                  <div className="w-2 h-2 rounded-full bg-white/80"></div>
+                </div>
+              </div>
+            </div>
+            <h3 className="font-display font-semibold">Custom "O" Concept</h3>
+            <p className="text-sm text-muted-foreground">Owambe-inspired logo idea</p>
+          </div>
+        </div>
+
+        {/* Larger Preview */}
+        <div className="mt-8 pt-8 border-t border-border">
+          <h3 className="font-display font-semibold mb-4">Extra Large Preview</h3>
+          <div className="flex flex-wrap gap-8 items-center justify-center">
+            <div className="w-48 h-48 rounded-3xl border border-border bg-background flex items-center justify-center overflow-hidden">
+              <img 
+                src="/favicon.ico" 
+                alt="Current Favicon Large" 
+                className="w-40 h-40 object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement!.innerHTML = '<span class="text-muted-foreground">Default</span>';
+                }}
+              />
+            </div>
+            <div className="w-48 h-48 rounded-3xl border-2 border-primary bg-gradient-to-br from-primary to-purple flex items-center justify-center">
+              <Star className="w-28 h-28 text-primary-foreground fill-gold" />
+            </div>
+            <div className="w-48 h-48 rounded-3xl border-2 border-gold bg-gradient-to-br from-gold via-coral to-primary flex items-center justify-center">
+              <div className="text-center">
+                <span className="text-7xl font-display font-bold text-white drop-shadow-lg">O</span>
+                <div className="flex gap-1 justify-center mt-2">
+                  <div className="w-3 h-3 rounded-full bg-white/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-white/60"></div>
+                  <div className="w-3 h-3 rounded-full bg-white/80"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* 1. Adire Pattern (existing) */}
