@@ -40,7 +40,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/owanbe-planner/">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/auth/planner" element={<AuthPage />} />
